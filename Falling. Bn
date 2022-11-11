@@ -1,0 +1,1398 @@
+//Use latest fork to get latest features 
+  
+ process.on('uncaughtException', console.error) 
+ require("./config") 
+ const { BufferJSON, WA_DEFAULT_EPHEMERAL, generateWAMessageFromContent, proto, generateWAMessageContent, generateWAMessage, prepareWAMessageMedia, areJidsSameUser, getContentType, WAFlag } = require('@adiwajshing/baileys') 
+ const zMiku = require("@adiwajshing/baileys") 
+ const fs = require('fs') 
+ const util = require('util') 
+ const chalk = require('chalk') 
+ const { exec, spawn, execSync } = require("child_process") 
+ const axios = require('axios') 
+ const { Sticker, createSticker, StickerTypes } = require('wa-sticker-formatter') 
+ const path = require('path') 
+ const os = require('os') 
+ const { AnimeWallpaper } = require("anime-wallpaper") 
+  const { TiktokDownloader } = require('./lib/tiktokdl')  
+ const moment = require('moment-timezone') 
+ const { JSDOM } = require('jsdom') 
+ const speed = require('performance-now') 
+ const hx = require("hxz-api") 
+ const hxz = require('./lib/hxz-api') 
+ const bdr = require('rumus-bdr') 
+ const yogipw = require("tod-api") 
+ const { color, bgcolor } = require('./lib/color') 
+ const thiccysapi = require('textmaker-thiccy') 
+ const toHur = require('@develoka/angka-terbilang-js') 
+ const mathjs = require('mathjs') 
+ const { performance } = require('perf_hooks') 
+ const { Primbon } = require('scrape-primbon') 
+ const { EmojiAPI } = require("emoji-api") 
+ const imgbbUploader = require('imgbb-uploader') 
+ const primbon = new Primbon() 
+ const { isLimit, limitAdd, getLimit, giveLimit, addBalance, kurangBalance, getBalance, isGame, gameAdd, givegame, cekGLimit } = require('./lib/limit.js'); 
+ const emoji = new EmojiAPI() 
+ const { smsg, formatp, tanggal, GIFBufferToVideoBuffer, formatDate, getTime, isUrl, sleep, clockString, runtime, fetchJson, getBuffer, jsonformat, format, parseMention, getRandom } = require('./lib/myfunc') 
+ const { aiovideodl } = require('./lib/scraper.js') 
+ const cheerio = require ("cheerio"); 
+ const textpro = require('./lib/textpro') 
+ const { detikNews } = require('./lib/detik') 
+ const { wikiSearch } = require('./lib/wiki.js'); 
+ const { Gempa } = require("./lib/gempa.js"); 
+ const ms = require('ms') 
+  let { covid } = require('./lib/covid.js')  
+ const { jadwaltv }= require('./lib/jadwaltv'); 
+ const { MikuTiktok } = require('./lib/tiktokmikudl'); 
+ const maker = require('mumaker') 
+ const xfarrapi = require('xfarr-api') 
+ const { hentai } = require('./lib/scraper2.js') 
+ let { msgFilter } = require('./lib/antispam') 
+ const { mediafireDl } = require('./lib/mediafire.js') 
+  
+  
+ const _ = require('lodash') 
+ const yargs = require('yargs/yargs') 
+ var low 
+ try { 
+   low = require('lowdb') 
+ } catch (e) { 
+   low = require('./lib/lowdb') 
+ } 
+  
+ const { Low, JSONFile } = low 
+ const mongoDB = require('./lib/mongoDB') 
+ const {  
+   yta,  
+   ytv,  
+   searchResult  
+  } = require('./lib/ytdl') 
+  
+ let banUser = JSON.parse(fs.readFileSync('./database/banUser.json')); 
+ let banchat = JSON.parse(fs.readFileSync('./database/banChat.json')); 
+  
+  let _limit = JSON.parse(fs.readFileSync('./storage/user/limit.json')); 
+  let _buruan = JSON.parse(fs.readFileSync('./storage/user/bounty.json')); 
+  let _darahOrg = JSON.parse(fs.readFileSync('./storage/user/blood.json')) 
+  
+  
+ global.opts = new Object(yargs(process.argv.slice(2)).exitProcess(false).parse()) 
+ global.db = new Low( 
+   /https?:\/\//.test(opts['db'] || '') ? 
+     new cloudDBAdapter(opts['db']) : /mongodb/.test(opts['db']) ? 
+       new mongoDB(opts['db']) : 
+       new JSONFile(`src/database.json`) 
+ ) 
+ global.DATABASE = global.db // Backwards Compatibility 
+ global.loadDatabase = async function loadDatabase() { 
+   if (global.db.READ) return new Promise((resolve) => setInterval(function () { (!global.db.READ ? (clearInterval(this), resolve(global.db.data == null ? global.loadDatabase() : global.db.data)) : null) }, 1 * 1000)) 
+   if (global.db.data !== null) return 
+   global.db.READ = true 
+   await global.db.read() 
+   global.db.READ = false 
+   global.db.data = { 
+     users: {}, 
+     chats: {}, 
+     database: {}, 
+     game: {}, 
+     settings: {}, 
+     others: {}, 
+     sticker: {}, 
+     ...(global.db.data || {}) 
+   } 
+   global.db.chain = _.chain(global.db.data) 
+ } 
+ loadDatabase() 
+ global.db = JSON.parse(fs.readFileSync('./src/database.json')) 
+ if (global.db) global.db = { 
+     sticker: {}, 
+     database: {}, 
+     game: {}, 
+     others: {}, 
+     users: {}, 
+     ...(global.db || {}) 
+ } 
+  
+ let lolkey = global.lolhuman 
+ let tebaklagu = db.game.tebaklagu = [] 
+ let _family100 = db.game.family100 = [] 
+ let kuismath = db.game.math = [] 
+ let tebakgambar = db.game.tebakgambar = [] 
+ let tebakkata = db.game.tebakkata = [] 
+ let caklontong = db.game.lontong = [] 
+ let caklontong_desk = db.game.lontong_desk = [] 
+ let tebakkalimat = db.game.kalimat = [] 
+ let tebaklirik = db.game.lirik = [] 
+ let tebaktebakan = db.game.tebakan = [] 
+ let vote = db.others.vote = [] 
+let pendaftar = JSON.parse(fs.readFileSync('./storage/user/user.json')) 
+ let balance = JSON.parse(fs.readFileSync('./database/balance.json')) 
+ let ssewa = JSON.parse(fs.readFileSync('./database/sewa.json')) 
+ let ban = JSON.parse(fs.readFileSync('./database/ban.json')) 
+ let autosticker = JSON.parse(fs.readFileSync('./database/autosticker.json')) 
+ const _autostick = JSON.parse(fs.readFileSync('./database/autostickpc.json')) 
+ let _leveling = JSON.parse(fs.readFileSync('./database/leveling.json')) 
+ let _level = JSON.parse(fs.readFileSync('./database/level.json')) 
+ let limit = JSON.parse(fs.readFileSync('./database/limit.json')) 
+ let setik = JSON.parse(fs.readFileSync('./src/sticker.json')) 
+ let vien = JSON.parse(fs.readFileSync('./src/audio.json')) 
+ let imagi = JSON.parse(fs.readFileSync('./src/image.json')) 
+ let videox = JSON.parse(fs.readFileSync('./src/video.json')) 
+ global.db = JSON.parse(fs.readFileSync('./src/database.json')) 
+ let _sewa = require("./lib/sewa"); 
+ const sewa = JSON.parse(fs.readFileSync('./database/sewa.json')) 
+  
+  
+ const time = moment.tz('Asia/Kolkata').format('DD/MM HH:mm:ss') 
+ const ucap = moment(Date.now()).tz('Asia/Kolkata').locale('id').format('a') 
+ var buln = ['/01/', '/02/', '/03/', '/04/', '/05/', '/06/', '/07/', '/08/', '/09/', '/10/', '/11/', '/12/']; 
+ var myHari = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']; 
+ var tgel = new Date(); 
+ var hri = tgel.getDate(); 
+ var bulnh = tgel.getMonth(); 
+ var thisHari = tgel.getDay(), 
+     thisDaye = myHari[thisHari]; 
+ var yye = tgel.getYear(); 
+ var syear = (yye < 1000) ? yye + 1900 : yye; 
+ const jangwak = (hri + '' + buln[bulnh] + '' + syear) 
+ const janghar = (thisDaye) 
+  
+ module.exports = Miku = async (Miku, m, chatUpdate, store) => { 
+ try { 
+ var body = (m.mtype === 'conversation') ? m.message.conversation : (m.mtype == 'imageMessage') ? m.message.imageMessage.caption : (m.mtype == 'videoMessage') ? m.message.videoMessage.caption : (m.mtype == 'extendedTextMessage') ? m.message.extendedTextMessage.text : (m.mtype == 'buttonsResponseMessage') ? m.message.buttonsResponseMessage.selectedButtonId : (m.mtype == 'listResponseMessage') ? m.message.listResponseMessage.singleSelectReply.selectedRowId : (m.mtype == 'templateButtonReplyMessage') ? m.message.templateButtonReplyMessage.selectedId : (m.mtype === 'messageContextInfo') ? (m.message.buttonsResponseMessage?.selectedButtonId || m.message.listResponseMessage?.singleSelectReply.selectedRowId || m.text) : '' 
+ var budy = (typeof m.text == 'string' ? m.text : '') 
+ const prefix = global.prefa 
+ const isCmd = body.startsWith(prefix) 
+ const notCmd = body.startsWith('') 
+ const command = isCmd ? body.slice(1).trim().split(' ')[0].toLowerCase() : '' 
+ const args = body.trim().split(/ +/).slice(1) 
+ const pushname = m.pushName || "No Name" 
+ const botNumber = await Miku.decodeJid(Miku.user.id) 
+ const isCreator = [botNumber, ...global.Owner].map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender) 
+ const itsMe = m.sender == botNumber ? true : false 
+ const text = args.join(" ") 
+ const from = m.chat 
+ const quoted = m.quoted ? m.quoted : m 
+ const mime = (quoted.msg || quoted).mimetype || '' 
+ const isMedia = /image|video|sticker|audio/.test(mime) 
+ const messagesD = body.slice(0).trim().split(/ +/).shift().toLowerCase() 
+ const groupMetadata = m.isGroup ? await Miku.groupMetadata(m.chat).catch(e => {}) : '' 
+ const groupName = m.isGroup ? groupMetadata.subject : '' 
+ const participants = m.isGroup ? await groupMetadata.participants : '' 
+ const groupAdmins = m.isGroup ? await participants.filter(v => v.admin !== null).map(v => v.id) : '' 
+ const groupOwner = m.isGroup ? groupMetadata.owner : '' 
+ const isBotAdmins = m.isGroup ? groupAdmins.includes(botNumber) : false 
+ const isAdmins = m.isGroup ? groupAdmins.includes(m.sender) : false 
+ const isUser = pendaftar.includes(m.sender) 
+ const isBan = banUser.includes(m.sender) 
+ const isBanChat = m.isGroup ? banchat.includes(from) : false 
+ const isRakyat = isCreator || global.rkyt.map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender) || false 
+ const AntiLink = m.isGroup ? ntilink.includes(from) : false 
+ const AntiLinkYoutubeVid = m.isGroup ? ntilinkytvid.includes(from) : false 
+ const AntiLinkYoutubeChannel = m.isGroup ? ntilinkytch.includes(from) : false 
+ const AntiLinkInstagram = m.isGroup ? ntilinkig.includes(from) : false 
+ const AntiLinkFacebook = m.isGroup ? ntilinkfb.includes(from) : false 
+ const AntiLinkTiktok = m.isGroup ? ntilinktt.includes(from) : false 
+ const AntiLinkTelegram = m.isGroup ? ntilinktg.includes(from) : false 
+ const AntiLinkTwitter = m.isGroup ? ntilinktwt.includes(from) : false 
+ const AntiLinkAll = m.isGroup ? ntilinkall.includes(from) : false 
+ const antiWame = m.isGroup ? ntwame.includes(from) : false 
+ const antiVirtex = m.isGroup ? ntvirtex.includes(from) : false 
+ const AntiNsfw = m.isGroup ? ntnsfw.includes(from) : false 
+ const isLeveling = m.isGroup ? _leveling.includes(from) : false 
+ autoreadsw = true 
+ const content = JSON.stringify(m.message) 
+ const q = args.join(' ') 
+  
+ const isQuotedVideo = m.mtype === 'extendedTextMessage' && content.includes('videoMessage') 
+ const isQuotedAudio = m.mtype === 'extendedTextMessage' && content.includes('audioMessage') 
+  
+  
+  
+  
+ const mongoose = require("mongoose");/* 
+  
+ /////////// -  DM chatbot (Delete this part to turn off DM Chat Bot) - ////////////////// 
+  
+ if (!isCmd && !m.isGroup){ 
+     const botreply = await axios.get(`http://api.brainshop.ai/get?bid=168758&key=Ci7eNhtxpxxDB5FQ&uid=[uid]&msg=[${budy}]`) 
+     txt = `${botreply.data.cnt}` 
+     m.reply(txt) 
+     } 
+  
+ ////////////////////////////////////////////////////////////////////////////////////// 
+  
+ */ 
+ _sewa.expiredCheck(Miku, sewa) 
+  
+ const reply = (teks) => { 
+             Miku.sendMessage(m.chat, { text: teks},{ quoted: m}) 
+         } 
+          
+         const replay = (teks) => { 
+             Miku.sendMessage(m.chat, { text: teks}, { quoted: m}) 
+         } 
+          
+  
+ function randomNomor(angka){ 
+             return Math.floor(Math.random() * angka) + 1 
+             } 
+              
+                  
+ if (m.message) { 
+ addBalance(m.sender, randomNomor(574), balance) 
+ console.log(chalk.black(chalk.bgWhite('[ MESSAGE ]')), chalk.black(chalk.bgGreen(new Date)), chalk.black(chalk.bgBlue(budy || m.mtype)) + '\n' + chalk.magenta('=> From'), chalk.green(pushname), chalk.yellow(m.sender) + '\n' + chalk.blueBright('=> In'), chalk.green(m.isGroup ? pushname : 'Private Chat', m.chat)) 
+         } 
+  
+         if (isCmd && !isUser){ 
+                         pendaftar.push(m.sender) 
+                         fs.writeFileSync('./storage/user/user.json', JSON.stringify(pendaftar)) 
+         }  
+  
+             const getLevelingXp = (userId) => { 
+             let position = false 
+             Object.keys(_level).forEach((i) => { 
+                 if (_level[i].jid === userId) { 
+                     position = i 
+                 } 
+             }) 
+             if (position !== false) { 
+                 return _level[position].xp 
+                } 
+             } 
+            const getLevelingLevel = (userId) => { 
+             let position = false 
+             Object.keys(_level).forEach((i) => { 
+                 if (_level[i].jid === userId) { 
+                     position = i 
+                 } 
+             }) 
+             if (position !== false) { 
+                 return _level[position].level 
+                 } 
+             } 
+  
+             const getLevelingId = (userId) => { 
+             let position = false 
+             Object.keys(_level).forEach((i) => { 
+                 if (_level[i].jid === userId) { 
+                     position = i 
+                 } 
+             }) 
+             if (position !== false) { 
+                 return _level[position].jid 
+                 } 
+              } 
+  
+             const addLevelingXp = (userId, amount) => { 
+             let position = false 
+             Object.keys(_level).forEach((i) => { 
+                 if (_level[i].jid === userId) { 
+                     position = i 
+                 } 
+             }) 
+             if (position !== false) { 
+                 _level[position].xp += amount 
+                 fs.writeFileSync('./database/level.json', JSON.stringify(_level)) 
+                 } 
+             } 
+  
+             const addLevelingLevel = (userId, amount) => { 
+             let position = false 
+             Object.keys(_level).forEach((i) => { 
+                 if (_level[i].jid === userId) { 
+                     position = i 
+                 } 
+             }) 
+             if (position !== false) { 
+                 _level[position].level += amount 
+                 fs.writeFileSync('./database/level.json', JSON.stringify(_level)) 
+                 } 
+             } 
+  
+             const addLevelingId = (userId) => { 
+             const obj = {jid: userId, xp: 1, level: 1} 
+             _level.push(obj) 
+             fs.writeFileSync('./database/level.json', JSON.stringify(_level)) 
+             } 
+  
+             const getUserRank = (userId) => { 
+     let position = null 
+     let found = false 
+     _level.sort((a, b) => (a.xp < b.xp) ? 1 : -1) 
+     Object.keys(_level).forEach((i) => { 
+         if (_level[i].id === userId) { 
+             position = i 
+             found = true 
+         } 
+     }) 
+     if (found === false && position === null) { 
+         const obj = { id: userId, xp: 0, level: 1 } 
+         _level.push(obj) 
+         fs.writeFileSync('./database/level.json', JSON.stringify(_level)) 
+         return 99 
+     } else { 
+         return position + 1 
+     } 
+ } 
+  
+ const xpGain = new Set() 
+  
+ const isGained = (userId) => { 
+     return !!xpGain.has(userId) 
+ } 
+  
+ const addCooldown = (userId) => { 
+     xpGain.add(userId) 
+     setTimeout(() => { 
+         return xpGain.delete(userId) 
+     }, 60000)  
+ } 
+  
+ var levelRole = getLevelingLevel(m.sender) 
+         var role = 'Copper V' 
+         if (levelRole <= 5) { 
+             role = 'Copper IV' 
+         } else if (levelRole <= 10) { 
+             role = 'Copper III' 
+         } else if (levelRole <= 15) { 
+             role = 'Copper II' 
+         } else if (levelRole <= 20) { 
+             role = 'Copper I' 
+         } else if (levelRole <= 25) { 
+             role = 'Silver V' 
+         } else if (levelRole <= 30) { 
+             role = 'Silver IV' 
+         } else if (levelRole <= 35) { 
+             role = 'Silver III' 
+         } else if (levelRole <= 40) { 
+             role = 'Silver II' 
+         } else if (levelRole <= 45) { 
+             role = 'Silver I' 
+         } else if (levelRole <= 50) { 
+             role = 'Gold V' 
+         } else if (levelRole <= 55) { 
+             role = 'Gold IV' 
+         } else if (levelRole <= 60) { 
+             role = 'Gold III' 
+         } else if (levelRole <= 65) { 
+             role = 'Gold II' 
+         } else if (levelRole <= 70) { 
+             role = 'Gold I' 
+         } else if (levelRole <= 75) { 
+             role = 'Platinum V' 
+         } else if (levelRole <= 80) { 
+             role = 'Platinum IV' 
+         } else if (levelRole <= 85) { 
+             role = 'Platinum III' 
+         } else if (levelRole <= 90) { 
+             role = 'Platinum II' 
+         } else if (levelRole <= 95) { 
+             role = 'Platinum I' 
+         } else if (levelRole < 100) { 
+             role = 'Exterminator' 
+         } 
+         var levelRoles = getLevelingLevel(m.sender) 
+         var roles = 'Cop V' 
+         if (levelRoles <= 5) { 
+             roles = 'Cop IV' 
+         } else if (levelRoles <= 10) { 
+             roles = 'Cop III' 
+         } else if (levelRoles <= 15) { 
+             roles = 'Cop II' 
+         } else if (levelRoles <= 20) { 
+             roles = 'Cop I' 
+         } else if (levelRoles <= 25) { 
+             roles = 'Sil V' 
+         } else if (levelRoles <= 30) { 
+             roles = 'Sil IV' 
+         } else if (levelRoles <= 35) { 
+             roles = 'Sil III' 
+         } else if (levelRoles <= 40) { 
+             roles = 'Sil II' 
+         } else if (levelRoles <= 45) { 
+             roles = 'Sil I' 
+         } else if (levelRoles <= 50) { 
+             roles = 'Gol V' 
+         } else if (levelRoles <= 55) { 
+             roles = 'Gol IV' 
+         } else if (levelRoles <= 60) { 
+             roles = 'Gol III' 
+         } else if (levelRoles <= 65) { 
+             roles = 'Gol II' 
+         } else if (levelRoles <= 70) { 
+             roles = 'Gol I' 
+         } else if (levelRoles <= 75) { 
+             roles = 'Plat V' 
+         } else if (levelRoles <= 80) { 
+             roles = 'Plat IV' 
+         } else if (levelRoles <= 85) { 
+             roles = 'Plat III' 
+         } else if (levelRoles <= 90) { 
+             roles = 'Plat II' 
+         } else if (levelRoles <= 95) { 
+             roles = 'Plati I' 
+         } else if (levelRoles < 100) { 
+             roles = 'Exter' 
+         } 
+     
+                         if (m.isGroup && isLeveling && isUser && Miku.public) { 
+                                 const currentLevel = getLevelingLevel(m.sender) 
+                                 const checkId = getLevelingId(m.sender) 
+                                 try { 
+                                         addCooldown(m.sender) 
+                                         if (currentLevel === undefined && checkId === undefined) addLevelingId(m.sender) 
+                                         const amountXp = Math.floor(Math.random() * 10) + 200 
+                                         const requiredXp = 200 * (Math.pow(2, currentLevel) - 1) 
+                                         const getLevel = getLevelingLevel(m.sender) 
+                                         addLevelingXp(m.sender, amountXp) 
+                                         if (requiredXp <= getLevelingXp(m.sender)) { 
+                                         addLevelingLevel(m.sender, 1) 
+ teks = `「 *User Level UP* 」\n\n@${m.sender.split("@")[0]} got leveled up!!\n\n*User XP*: ${getLevelingXp(m.sender)}\n*Level*: ${getLevel} -> ${getLevelingLevel(m.sender)}\n*Role*: ${role} \n\n` 
+ Miku.sendMessage(m.chat, {text: teks, mentions:[m.sender]}, {quoted:m}) 
+ } 
+                         } catch (err) { 
+                                 console.error("❌ An error occured !") 
+                         } 
+                 } 
+                 if (prefix && command) { 
+                                 const currentLevel = getLevelingLevel(m.sender) 
+                                 const checkId = getLevelingId(m.sender) 
+                                 try { 
+                                          
+                                         if (currentLevel === undefined && checkId === undefined) addLevelingId(m.sender) 
+                                         const amountXp = Math.floor(Math.random() * 10) + 30 
+                                         const requiredXp = 30 * (Math.pow(2, currentLevel) - 1) 
+                                         const getLevel = getLevelingLevel(m.sender) 
+                                         addLevelingXp(m.sender, amountXp) 
+                                         if (requiredXp <= getLevelingXp(m.sender)) { 
+                                         addLevelingLevel(m.sender, 1) 
+                                         } 
+                                          
+                         } catch (err) { 
+                                 console.error("❌ An error occured !") 
+                         } 
+                 } 
+  
+ if (autoreadsw) { 
+                 if (from === 'status@broadcast') { 
+                 Miku.chatRead(from) 
+         } 
+         } 
+  
+ if (global.autoreadpmngc) { 
+ if (command) { 
+ await Miku.sendPresenceUpdate('composing', m.chat) 
+ Miku.sendReadReceipt(from, m.sender, [m.key.id])} 
+ } 
+ /* 
+   if (global.autoReadGc) { 
+   if (m.isGroup) { Miku.sendReadReceipt(m.chat, m.sender, [m.key.id]) } 
+ } 
+ */ 
+  
+   if (global.autoReadAll) { if (m.chat) { Miku.sendReadReceipt(m.chat, m.sender, [m.key.id]) } 
+   } 
+  
+     if (global.autoRecord) { if (m.chat) { Miku.sendPresenceUpdate('recording', m.chat) } 
+ } 
+  
+   if (global.autoTyping) { if (m.chat) { Miku.sendPresenceUpdate('composing', m.chat) } 
+ } 
+  
+   if (global.available) { if (m.chat) { Miku.sendPresenceUpdate('available', m.chat) } 
+   } 
+  
+ const hariRaya = new Date('6 1, 2022 00:00:00') 
+                         const sekarang = new Date().getTime(); 
+                         const Selisih = hariRaya - sekarang; 
+                         const jhari = Math.floor( Selisih / (1000 * 60 * 60 * 24)); 
+                         const jjam = Math.floor( Selisih % (1000 * 60 * 60 * 24) / (1000 * 60 * 60)) 
+                         const mmmenit = Math.floor( Selisih % (1000 * 60 * 60) / (1000 * 60)); 
+                         const ddetik = Math.floor( Selisih % (1000 * 60) / 1000); 
+                         const ultah = `${jhari}Day ${jjam}Hour ${mmmenit}Minute ${ddetik}Second` 
+                          
+ async function hitungmundur(bulan, tanggal) {  
+           let from = new Date(`${bulan} ${tanggal}, 2022 00:00:00`).getTime(); 
+           let now = Date.now(); 
+           let distance = from - now; 
+           let days = Math.floor(distance / (1000 * 60 * 60 * 24)); 
+           let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)); 
+           let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)); 
+           let seconds = Math.floor((distance % (1000 * 60)) / 1000); 
+           return days + "Day " + hours + "Hour " + minutes + "Minute " + seconds + "Second" 
+         } 
+ try { 
+ let isNumber = x => typeof x === 'number' && !isNaN(x) 
+ let limitUser = isRakyat ? global.limitawal.rakyat : global.limitawal.free 
+ let user = global.db.users[m.sender] 
+ if (typeof user !== 'object') global.db.users[m.sender] = {} 
+ if (user) { 
+ if (!isNumber(user.afkTime)) user.afkTime = -1 
+ if (!('afkReason' in user)) user.afkReason = '' 
+ if (!isNumber(user.limit)) user.limit = limitUser 
+ } else global.db.users[m.sender] = { 
+ afkTime: -1, 
+ afkReason: '', 
+ limit: limitUser, 
+ } 
+             let setting = global.db.data.settings[botNumber] 
+             if (typeof setting !== 'object') global.db.data.settings[botNumber] = {} 
+             if (setting) { 
+                 if (!isNumber(setting.status)) setting.status = 0 
+                 if (!('autobio' in setting)) setting.autobio = false 
+                 if (!('templateImage' in setting)) setting.templateImage = false 
+                 if (!('templateGif' in setting)) setting.templateGif = false 
+                 if (!('templateMsg' in setting)) setting.templateMsg = false 
+                 if (!('templateDocument' in setting)) setting.templateDocument = true 
+             } else global.db.data.settings[botNumber] = { 
+                 status: 0, 
+                 autobio: false, 
+                 templateImage: false, 
+                 templateGif: false, 
+                 templateMsg: false, 
+                 templateDocument: true, 
+             } 
+ } catch (err) { 
+ console.error(err) 
+ } 
+ const sendOrder = async(jid, text, orid, img, itcount, title, sellers, tokens, ammount) => { 
+ const order = generateWAMessageFromContent(jid, proto.Message.fromObject({ 
+  "orderMessage": { 
+ "orderId": orid,  
+ "thumbnail": img,  
+ "itemCount": itcount,  
+ "status": "INQUIRY",  
+ "surface": "CATALOG",  
+ "orderTitle": title,  
+ "message": text,  
+ "sellerJid": sellers,  
+ "token": tokens,  
+ "totalAmount1000": ammount,  
+ "totalCurrencyCode": "IDR",  
+ } 
+ }), { userJid: jid }) 
+ Miku.relayMessage(jid, order.message, { messageId: order.key.id}) 
+ } 
+  
+  
+ const {  
+ addInventoriDarah,  
+ cekDuluJoinAdaApaKagaDiJson,  
+ addDarah,  
+ kurangDarah,  
+ getDarah  
+ }  = require('./storage/user/blood.js') 
+ const {  
+ cekInventoryAdaAtauGak,  
+ addInventori,   
+ addBesi,  
+ addEmas,  
+ addEmerald, 
+ addUmpan, 
+ addPotion, 
+ kurangBesi,  
+ kurangEmas,  
+ kurangEmerald,  
+ kurangUmpan, 
+ kurangPotion, 
+ getBesi,  
+ getEmas,  
+ getEmerald, 
+ getUmpan, 
+ getPotion 
+ } = require('./storage/user/exchange.js') 
+ const {  
+ addInventoriMonay,  
+ cekDuluJoinAdaApaKagaMonaynyaDiJson,  
+ addMonay, 
+ kurangMonay,  
+ getMonay  
+ } = require('./storage/user/money.js') 
+ const {  
+ addInventoriLimit,  
+ cekDuluJoinAdaApaKagaLimitnyaDiJson,  
+ addLimit,  
+ kurangLimit,  
+ getLimit  
+ } = require('./storage/user/limit.js') 
+ const {  
+ cekDuluHasilBuruanNya,  
+ addInventoriBuruan,  
+ addIkan, 
+ addAyam,  
+ addKelinci,  
+ addDomba,  
+ addSapi, 
+ addGajah, 
+ kurangIkan, 
+ kurangAyam,  
+ kurangKelinci,  
+ kurangDomba,  
+ kurangSapi, 
+ kurangGajah, 
+ getIkan, 
+ getAyam,  
+ getKelinci,  
+ getDomba, 
+ getSapi, 
+ getGajah 
+ } = require('./storage/user/prey.js') 
+ let DarahAwal =  global.rpg.darahawal 
+ const isDarah = cekDuluJoinAdaApaKagaDiJson(m.sender)    
+ const isCekDarah = getDarah(m.sender) 
+ const isUmpan = getUmpan(m.sender) 
+ const isPotion = getPotion(m.sender) 
+ const isIkan = getIkan(m.sender) 
+ const isAyam = getAyam(m.sender) 
+ const isKelinci = getKelinci(m.sender) 
+ const isDomba = getDomba(m.sender) 
+ const isSapi = getSapi(m.sender) 
+ const isGajah = getGajah(m.sender) 
+ const isMonay = getMonay(m.sender) 
+ const isLimit = getLimit(m.sender) 
+ const isBesi = getBesi(m.sender) 
+ const isEmas = getEmas(m.sender) 
+ const isEmerald = getEmerald(m.sender) 
+ const isInventory = cekInventoryAdaAtauGak(m.sender) 
+ const isInventoriBuruan = cekDuluHasilBuruanNya(m.sender) 
+ const isInventoryLimit = cekDuluJoinAdaApaKagaLimitnyaDiJson(m.sender) 
+ const isInventoryMonay = cekDuluJoinAdaApaKagaMonaynyaDiJson(m.sender) 
+ const ikan = ['🐟','🐠','🐡']    
+     
+   
+         let picaks = [flaming,fluming,flarun,flasmurf] 
+                 let picak = picaks[Math.floor(Math.random() * picaks.length)] 
+  
+ if (!isRakyat) { 
+ rkyt.push(m.sender.split("@")[0]) 
+ } 
+  
+ global.hit = {} 
+ if (isCmd) { 
+ data = await fetchJson('https://api.countapi.xyz/hit/CheemsBot/visits') 
+ jumlahcmd = `${data.value}` 
+ dataa = await fetchJson(`https://api.countapi.xyz/hit/CheemsBot${moment.tz('Asia/Kolkata').format('DDMMYYYY')}/visits`) 
+ jumlahharian = `${dataa.value}` 
+ } 
+   
+  
+ let mentionUser = [...new Set([...(m.mentionedJid || []), ...(m.quoted ? [m.quoted.sender] : [])])] 
+ for (let jid of mentionUser) { 
+ let user = global.db.users[jid] 
+ if (!user) continue 
+ let afkTime = user.afkTime 
+ if (!afkTime || afkTime < 0) continue 
+ let reason = user.afkReason || '' 
+ reply(` 
+ Pls try not to tag him! 
+ He's in away from keyboard ${reason ? 'with reason ' + reason : 'no reason'} 
+ During ${clockString(new Date - afkTime)} 
+ `.trim()) 
+ } 
+  
+ if (db.users[m.sender].afkTime > -1) { 
+ let user = global.db.users[m.sender] 
+ reply(` 
+ Pls try not to tag him! 
+ He's Offline ${user.afkReason ? ' after ' + user.afkReason : ''} 
+ During ${clockString(new Date - user.afkTime)} 
+ `.trim()) 
+ user.afkTime = -1 
+ user.afkReason = '' 
+ } 
+  
+  
+ if (m.mtype === 'groupInviteMessage') { 
+ teks = `I can't join the group untill my *Owner* ask me to join. Type *-owner* to get owner number and ask him.` 
+ sendOrder(m.chat, teks, "5123658817728409", fs.readFileSync('./Assets/pic10.jpg'), `${watermark}`, `${BotName}`, "916909137213@s.whatsapp.net", "AR7zJt8MasFx2Uir/fdxhkhPGDbswfWrAr2gmoyqNZ/0Wg==", "99999999999999999999") 
+ } 
+  
+  
+ if (AntiLink) { 
+     linkgce = await Miku.groupInviteCode(from) 
+     if (budy.includes(`https://chat.whatsapp.com/${linkgce}`)) { 
+     reply(`\`\`\`「  Antilink System  」\`\`\`\n\nNo action will be because you sent this group's link.`) 
+     } else if (isUrl(m.text)) { 
+     bvl = `\`\`\`「  *Antilink System*  」\`\`\`\n\nAdmin has sent a link so no action is taken.` 
+     if (isAdmins) return reply(bvl) 
+     if (m.key.fromMe) return reply(bvl) 
+     if (isCreator) return reply(bvl) 
+     kice = m.sender 
+     await Miku.groupParticipantsUpdate(m.chat, [kice], 'remove').then((res) => reply(jsonformat(res))).catch((err) => reply(jsonformat(err))) 
+     Miku.sendMessage(from, {text:`\`\`\`「  Antilink System  」\`\`\`\n\n@${kice.split("@")[0]} Baka Has been removed for sending link in this group!`, contextInfo:{mentionedJid:[kice]}}, {quoted:m}) 
+     } else { 
+     } 
+     } 
+   
+     if (antiWame) 
+     if (budy.includes(`wa.me`)) { 
+   if (!isBotAdmins) return 
+   bvl = `\`\`\`「 _'wa.me' PM link Detected!_  」\`\`\`\n\nLink sent by Admin so no action is taken!` 
+   if (isAdmins) return reply(bvl) 
+   if (m.key.fromMe) return reply(bvl) 
+   if (isCreator) return reply(bvl) 
+   kice = m.sender 
+   await Miku.groupParticipantsUpdate(m.chat, [kice], 'remove') 
+   Miku.sendMessage(from, {text:`\`\`\`「 'wa.me' PM link Detected! 」\`\`\`\n\n@${kice.split("@")[0]} Baka Has been removed for sending link in this group!`, contextInfo:{mentionedJid:[kice]}}, {quoted:m}) 
+   } else { 
+   } 
+   if (antiWame) 
+   if (budy.includes(`http://wa.me`)) { 
+ if (!isBotAdmins) return 
+ bvl = `\`\`\`「 'wa.me' PM link Detected! 」\`\`\`\n\nLink sent by Admin so no action is taken!` 
+ if (isAdmins) return reply(bvl) 
+ if (m.key.fromMe) return reply(bvl) 
+ if (isCreator) return reply(bvl) 
+ kice = m.sender 
+ await Miku.groupParticipantsUpdate(m.chat, [kice], 'remove') 
+ Miku.sendMessage(from, {text:`\`\`\`「 'wa.me' PM link Detected! 」\`\`\`\n\n@${kice.split("@")[0]}  Baka Has been removed for sending link in this group!`, contextInfo:{mentionedJid:[kice]}}, {quoted:m}) 
+ } else { 
+ } 
+  
+ if (antiVirtex) { 
+     if (budy.length > 3500) { 
+     reply(`*Caution!*\n\n`.repeat(300)) 
+     reply(`\`\`\`Virus Detected !!\`\`\`\n\nRevoving sender...`) 
+     if (!isBotAdmins) return reply(mess.botAdmin) 
+     Miku.groupParticipantsUpdate(m.chat, [m.sender], 'remove') 
+     } 
+     } 
+  
+  
+     if (AntiLink) { 
+         if (!isBotAdmins) return 
+         linkgce = await Miku.groupInviteCode(from) 
+         if (budy.includes(`https://chat.whatsapp.com/${linkgce}`)) { 
+         reply(`\`\`\`「  Antilink System  」\`\`\`\n\nNo action will be taken because you sent this group's link!`) 
+         } else if (isUrl(m.text)) { 
+         bvl = `\`\`\`「  Antilink System  」\`\`\`\n\nAdmin has sent a group link so no action will be taken!` 
+         if (isAdmins) return reply(bvl) 
+         if (m.key.fromMe) return reply(bvl) 
+         if (isCreator) return reply(bvl) 
+         kice = m.sender 
+         await Miku.groupParticipantsUpdate(m.chat, [kice], 'remove') 
+         Miku.sendMessage(from, {text:`\`\`\`「  Antilink System  」\`\`\`\n\n@${kice.split("@")[0]} Baka has been removed for sending link in this group!`, contextInfo:{mentionedJid:[kice]}}, {quoted:m}) 
+         } else { 
+         } 
+         } 
+  
+                 if (AntiLinkYoutubeVid) 
+         if (budy.includes("https://youtu.be/")){ 
+         if (!isBotAdmins) return 
+         bvl = `\`\`\`「  Antilink System  」」\`\`\`\n\nLink sent by Admin so no action will be taken!` 
+         if (isAdmins) return reply(bvl) 
+         if (m.key.fromMe) return reply(bvl) 
+         if (isCreator) return reply(bvl) 
+         kice = m.sender 
+         await Miku.groupParticipantsUpdate(m.chat, [kice], 'remove') 
+         Miku.sendMessage(from, {text:`\`\`\`「  Antilink System  」\`\`\`\n\n@${kice.split("@")[0]} Baka has been removed for sending Yt video link in this group!`, contextInfo:{mentionedJid:[kice]}}, {quoted:m}) 
+         } else { 
+         } 
+          
+         if (AntiLinkYoutubeChannel) 
+            if (budy.includes("https://youtube.com/")){ 
+         if (!isBotAdmins) return 
+         bvl = `\`\`\`「  Antilink System  」\`\`\`\n\nLink sent by Admin so no action will be taken!` 
+         if (isAdmins) return reply(bvl) 
+         if (m.key.fromMe) return reply(bvl) 
+         if (isCreator) return reply(bvl) 
+         kice = m.sender 
+         await Miku.groupParticipantsUpdate(m.chat, [kice], 'remove') 
+         Miku.sendMessage(from, {text:`\`\`\`「  Antilink System  」\`\`\`\n\n@${kice.split("@")[0]} Baka has been removed for sending Yt channel link in this group!`, contextInfo:{mentionedJid:[kice]}}, {quoted:m}) 
+         } else { 
+         } 
+          
+         if (AntiLinkInstagram) 
+            if (budy.includes("https://www.instagram.com/")){ 
+         if (!isBotAdmins) return 
+         bvl = `\`\`\`「  Antilink System  」\`\`\`\n\nLink sent by Admin so no action will be taken!` 
+         if (isAdmins) return reply(bvl) 
+         if (m.key.fromMe) return reply(bvl) 
+         if (isCreator) return reply(bvl) 
+         kice = m.sender 
+         await Miku.groupParticipantsUpdate(m.chat, [kice], 'remove') 
+         Miku.sendMessage(from, {text:`\`\`\`「  Antilink System  」\`\`\`\n\n@${kice.split("@")[0]} Baka has been removed for sending Instagram link in this group! No promotion is allowed!`, contextInfo:{mentionedJid:[kice]}}, {quoted:m}) 
+         } else { 
+         } 
+          
+         if (AntiLinkFacebook) 
+            if (budy.includes("https://facebook.com/")){ 
+         if (!isBotAdmins) return 
+         bvl = `\`\`\`「  Antilink System  」\`\`\`\n\nLink sent by Admin so no action will be taken!` 
+         if (isAdmins) return reply(bvl) 
+         if (m.key.fromMe) return reply(bvl) 
+         if (isCreator) return reply(bvl) 
+         kice = m.sender 
+         await Miku.groupParticipantsUpdate(m.chat, [kice], 'remove') 
+         Miku.sendMessage(from, {text:`\`\`\`「  Antilink System  」\`\`\`\n\n@${kice.split("@")[0]} Baka has been removed for sending Facebook link in this group!`, contextInfo:{mentionedJid:[kice]}}, {quoted:m}) 
+         } else { 
+         } 
+          
+         if (AntiLinkTelegram) 
+            if (budy.includes("https://t.me/")){ 
+         if (AntiLinkTelegram) 
+         if (!isBotAdmins) return 
+         bvl = `\`\`\`「  Antilink System  」\`\`\`\n\nLink sent by Admin so no action will be taken!` 
+         if (isAdmins) return reply(bvl) 
+         if (m.key.fromMe) return reply(bvl) 
+         if (isCreator) return reply(bvl) 
+         kice = m.sender 
+         await Miku.groupParticipantsUpdate(m.chat, [kice], 'remove') 
+         Miku.sendMessage(from, {text:`\`\`\`「  Antilink System  」\`\`\`\n\n@${kice.split("@")[0]} Baka has been removed for sending Telegram link in this group!`, contextInfo:{mentionedJid:[kice]}}, {quoted:m}) 
+         } else { 
+         } 
+          
+         if (AntiLinkTiktok) 
+            if (budy.includes("https://www.tiktok.com/")){ 
+         if (!isBotAdmins) return 
+         bvl = `\`\`\`「  Antilink System  」\`\`\`\n\nLink sent by Admin so no action will be taken!` 
+         if (isAdmins) return reply(bvl) 
+         if (m.key.fromMe) return reply(bvl) 
+         if (isCreator) return reply(bvl) 
+         kice = m.sender 
+         await Miku.groupParticipantsUpdate(m.chat, [kice], 'remove') 
+         Miku.sendMessage(from, {text:`\`\`\`「  Antilink System  」\`\`\`\n\n@${kice.split("@")[0]} Baka has been removed for sending Tiktok link in this group!`, contextInfo:{mentionedJid:[kice]}}, {quoted:m}) 
+         } else { 
+         } 
+          
+         if (AntiLinkTwitter) 
+            if (budy.includes("https://twitter.com/")){ 
+         if (!isBotAdmins) return 
+         bvl = `\`\`\`「  Antilink System  」\`\`\`\n\nLink sent by Admin so no action will be taken!` 
+         if (isAdmins) return reply(bvl) 
+         if (m.key.fromMe) return reply(bvl) 
+         if (isCreator) return reply(bvl) 
+         kice = m.sender 
+         await Miku.groupParticipantsUpdate(m.chat, [kice], 'remove') 
+         Miku.sendMessage(from, {text:`\`\`\`「  Antilink System  」\`\`\`\n\n@${kice.split("@")[0]} Baka has been removed for sending Twitter link in this group!`, contextInfo:{mentionedJid:[kice]}}, {quoted:m}) 
+         } else { 
+         } 
+          
+         if (AntiLinkAll) 
+            if (budy.includes("https://")){ 
+         if (!isBotAdmins) return 
+         bvl = `\`\`\`「  Antilink System  」\`\`\`\n\nLink sent by Admin so no action will be taken!` 
+         if (isAdmins) return reply(bvl) 
+         if (m.key.fromMe) return reply(bvl) 
+         if (isCreator) return reply(bvl) 
+         kice = m.sender 
+         await Miku.groupParticipantsUpdate(m.chat, [kice], 'remove') 
+         Miku.sendMessage(from, {text:`\`\`\`「  Antilink System  」\`\`\`\n\n@${kice.split("@")[0]} Baka has been removed for sending links in this group!`, contextInfo:{mentionedJid:[kice]}}, {quoted:m}) 
+         } else { 
+         } 
+          
+  
+ if (m.mtype == 'viewOnceMessage') { 
+         if (!db.data.chats[m.chat].antionce) return 
+  teks = `「 *Anti ViewOnce Message* 」 
+ ${themeemoji} Name : ${m.pushName} 
+ ${themeemoji} User : @${m.sender.split("@")[0]} 
+ ${themeemoji} Clock : ${moment.tz('Asia/Kolkata').format('HH:mm:ss')}  
+ ${themeemoji} Date : ${moment.tz('Asia/Kolkata').format('DD/MM/YYYY')} 
+ ${themeemoji} MessageType : ${m.mtype}` 
+ Miku.sendTextWithMentions(m.chat, teks, m) 
+ await sleep(500) 
+ m.copyNForward(m.chat, true, { readViewOnce: true }).catch(_ => reply(`Maybe it's been opened by a bot`)) 
+ } 
+  
+  
+ if (!Miku.public) { 
+ if (!m.key.fromMe) return 
+ } 
+  
+ setInterval(() => { 
+ fs.writeFileSync('./src/database.json', JSON.stringify(global.db, null, 2)) 
+ }, 60 * 1000) 
+  
+ // reset limit every 12 hours 
+ let cron = require('node-cron') 
+     cron.schedule('00 12 * * *', () => { 
+     let user = Object.keys(global.db.users) 
+     let limitUser = isRakyat ? global.limitawal.rakyat : global.limitawal.free 
+     for (let jid of user) global.db.users[jid].limit = limitUser 
+     console.log('Reseted Limit') 
+     }, { 
+     scheduled: true, 
+     timezone: "Asia/Kolkata" 
+     }) 
+  
+     if (tebaklagu.hasOwnProperty(m.sender.split('@')[0]) && isCmd) { 
+       kuis = true 
+       jawaban = tebaklagu[m.sender.split('@')[0]] 
+       if (budy.toLowerCase() == jawaban) { 
+       await Miku.sendButtonText(m.chat, [{ buttonId: 'guess song', buttonText: { displayText: 'Guess The Song' }, type: 1 }], `🎮 Guess The Song 🎮\n\nCorrect answer 🎉\n\nWant to play again? press the button below`, `${global.BotName}`, m) 
+       delete tebaklagu[m.sender.split('@')[0]] 
+       } else reply('*Wrong answer!*') 
+       } 
+  
+       if (tebakgambar.hasOwnProperty(m.sender.split('@')[0]) && isCmd) { 
+         kuis = true 
+         jawaban = tebakgambar[m.sender.split('@')[0]] 
+         if (budy.toLowerCase() == jawaban) { 
+         await Miku.sendButtonText(m.chat, [{ buttonId: 'guess picture', buttonText: { displayText: 'Guess The Picture' }, type: 1 }], `🎮 Guess The Picture 🎮\n\nCorrect Answer 🎉\n\nWant to play again? press the button below`, `${global.BotName}`, m) 
+         delete tebakgambar[m.sender.split('@')[0]] 
+         } else reply('*Wrong answer!*') 
+         } 
+  
+         if (tebakkata.hasOwnProperty(m.sender.split('@')[0]) && isCmd) { 
+           kuis = true 
+           jawaban = tebakkata[m.sender.split('@')[0]] 
+           if (budy.toLowerCase() == jawaban) { 
+           await Miku.sendButtonText(m.chat, [{ buttonId: 'guess word', buttonText: { displayText: 'Guess The Word' }, type: 1 }], `🎮 Guess The Word 🎮\n\nCorrect Answer 🎉\n\nWant to play again? press the button below`, `${global.BotName}`, m) 
+           delete tebakkata[m.sender.split('@')[0]] 
+           } else reply('*Wrong answer!*') 
+           } 
+            
+           if (caklontong.hasOwnProperty(m.sender.split('@')[0]) && isCmd) { 
+           kuis = true 
+           jawaban = caklontong[m.sender.split('@')[0]] 
+           deskripsi = caklontong_desk[m.sender.split('@')[0]] 
+           if (budy.toLowerCase() == jawaban) { 
+           await Miku.sendButtonText(m.chat, [{ buttonId: 'guess saying', buttonText: { displayText: 'Guess The Saying' }, type: 1 }], `🎮 Guess The Saying 🎮\n\nCorrect Answer 🎉\n*${deskripsi}*\n\nWant to play again? press the button below`, `${global.BotName}`, m) 
+           delete caklontong[m.sender.split('@')[0]] 
+           delete caklontong_desk[m.sender.split('@')[0]] 
+           } else reply('*Wrong answer!*') 
+           } 
+            
+           if (tebakkalimat.hasOwnProperty(m.sender.split('@')[0]) && isCmd) { 
+           kuis = true 
+           jawaban = tebakkalimat[m.sender.split('@')[0]] 
+           if (budy.toLowerCase() == jawaban) { 
+           await Miku.sendButtonText(m.chat, [{ buttonId: 'guess sentence', buttonText: { displayText: 'Guess The Sentence' }, type: 1 }], `🎮 Guess The Sentence 🎮\n\nCorrect Answer 🎉\n\nWant to play again? press the button below`, `${global.BotName}`, m) 
+           delete tebakkalimat[m.sender.split('@')[0]] 
+           } else reply('*Wrong answer!*') 
+           } 
+            
+           if (tebaklirik.hasOwnProperty(m.sender.split('@')[0]) && isCmd) { 
+           kuis = true 
+           jawaban = tebaklirik[m.sender.split('@')[0]] 
+           if (budy.toLowerCase() == jawaban) { 
+           await Miku.sendButtonText(m.chat, [{ buttonId: 'guess lyrics', buttonText: { displayText: 'Guess The Lyrics' }, type: 1 }], `🎮 Guess The Lyrics 🎮\n\nCorrect Answer 🎉\n\nWant to play again? press the button below`, `${global.BotName}`, m) 
+           delete tebaklirik[m.sender.split('@')[0]] 
+           } else reply('*Wrong answer!*') 
+           } 
+            
+           if (tebaktebakan.hasOwnProperty(m.sender.split('@')[0]) && isCmd) { 
+           kuis = true 
+           jawaban = tebaktebakan[m.sender.split('@')[0]] 
+           if (budy.toLowerCase() == jawaban) { 
+           await Miku.sendButtonText(m.chat, [{ buttonId: 'riddles', buttonText: { displayText: 'Riddles' }, type: 1 }], `🎮 Riddles 🎮\n\nCorrect Answer 🎉\n\nWant to play again? press the button below`, `${global.BotName}`, m) 
+           delete tebaktebakan[m.sender.split('@')[0]] 
+           } else reply('*Wrong answer!*') 
+           } 
+                     if (('family100'+m.chat in _family100) && isCmd) { 
+           kuis = true 
+           let room = _family100['family100'+m.chat] 
+           let teks = budy.toLowerCase().replace(/[^\w\s\-]+/, '') 
+           let isSurender = /^((me)?give up|surr?ender|surrender)$/i.test(m.text) 
+           if (!isSurender) { 
+           let index = room.jawaban.findIndex(v => v.toLowerCase().replace(/[^\w\s\-]+/, '') === teks) 
+           if (room.terjawab[index]) return !0 
+           room.terjawab[index] = m.sender 
+           } 
+           let isWin = room.terjawab.length === room.terjawab.filter(v => v).length 
+           let caption = ` 
+           Answer the following questions :\n${room.soal}\n\n\nThere is ${room.jawaban.length} Answer ${room.jawaban.find(v => v.includes(' ')) ? `(some answers have spaces)` : ''} 
+           ${isWin ? `All Answers Answered` : isSurender ? 'Surrender!' : ''} 
+           ${Array.from(room.jawaban, (jawaban, index) => { 
+           return isSurender || room.terjawab[index] ? `(${index + 1}) ${jawaban} ${room.terjawab[index] ? '@' + room.terjawab[index].split('@')[0] : ''}`.trim() : false 
+           }).filter(v => v).join('\n')} 
+           ${isSurender ? '' : `Perfect Player`}`.trim() 
+           Miku.sendText(m.chat, caption, m, { contextInfo: { mentionedJid: parseMention(caption) }}).then(mes => { return _family100['family100'+m.chat].pesan = mesg }).catch(_ => _) 
+           if (isWin || isSurender) delete _family100['family100'+m.chat] 
+           } 
+            
+            
+           this.suit = this.suit ? this.suit : {} 
+           let roof = Object.values(this.suit).find(roof => roof.id && roof.status && [roof.p, roof.p2].includes(m.sender)) 
+           if (roof) { 
+           let win = '' 
+           let tie = false 
+           if (m.sender == roof.p2 && /^(acc(ept)?|accept|yes|oke?|reject|dont want|later|no(pe)?can|y)/i.test(m.text) && m.isGroup && roof.status == 'wait') { 
+           if (/^(reject|dont want|later|n|no(pe)?can)/i.test(m.text)) { 
+           Miku.sendTextWithMentions(m.chat, `@${roof.p2.split`@`[0]} rejected the suit, the suit is canceled`, m) 
+           delete this.suit[roof.id] 
+           return !0 
+           } 
+           roof.status = 'play' 
+           roof.asal = m.chat 
+           clearTimeout(roof.waktu) 
+            
+           Miku.sendText(m.chat, `Suit has been sent to chat 
+           @${roof.p.split`@`[0]} dan  
+           @${roof.p2.split`@`[0]} 
+  
+           Please choose a suit in the respective chat" 
+           Click https://wa.me/${botNumber.split`@`[0]}`, m, { mentions: [roof.p, roof.p2] }) 
+           if (!roof.pilih) Miku.sendText(roof.p, `Please select \n\nRock🗿\nPaper📄\nScissors✂️`, m) 
+           if (!roof.pilih2) Miku.sendText(roof.p2, `Please select \n\nRock🗿\nPaper📄\nScissors✂️`, m) 
+           roof.waktu_milih = setTimeout(() => { 
+           if (!roof.pilih && !roof.pilih2) Miku.sendText(m.chat, `Both players don't want to play,\nSuit canceled`) 
+           else if (!roof.pilih || !roof.pilih2) { 
+           win = !roof.pilih ? roof.p2 : roof.p 
+           Miku.sendTextWithMentions(m.chat, `@${(roof.pilih ? roof.p2 : roof.p).split`@`[0]} don't choose suit, game over`, m) 
+           } 
+           delete this.suit[roof.id] 
+           return !0 
+           }, roof.timeout) 
+           } 
+           let jwb = m.sender == roof.p 
+           let jwb2 = m.sender == roof.p2 
+           let g = /scissors/i 
+           let b = /rock/i 
+           let k = /paper/i 
+           let reg = /^(scissors|rock|paper)/i 
+           if (jwb && reg.test(m.text) && !roof.pilih && !m.isGroup) { 
+           roof.pilih = reg.exec(m.text.toLowerCase())[0] 
+           roof.text = m.text 
+           reply(`You have chosen ${m.text} ${!roof.pilih2 ? `\n\nWaiting for the opponent to choose` : ''}`) 
+           if (!roof.pilih2) Miku.sendText(roof.p2, '_The opponent has chosen_\nNow it is your turn', 0) 
+           } 
+           if (jwb2 && reg.test(m.text) && !roof.pilih2 && !m.isGroup) { 
+           roof.pilih2 = reg.exec(m.text.toLowerCase())[0] 
+           roof.text2 = m.text 
+           reply(`You have chosen ${m.text} ${!roof.pilih ? `\n\nWaiting for the opponent to choose` : ''}`) 
+           if (!roof.pilih) Miku.sendText(roof.p, '_The opponent has chosen_\nNow it is your turn', 0) 
+           } 
+           let stage = roof.pilih 
+           let stage2 = roof.pilih2 
+            
+           if (roof.pilih && roof.pilih2) { 
+             clearTimeout(roof.waktu_milih) 
+             if (b.test(stage) && g.test(stage2)) win = roof.p 
+             else if (b.test(stage) && k.test(stage2)) win = roof.p2 
+             else if (g.test(stage) && k.test(stage2)) win = roof.p 
+             else if (g.test(stage) && b.test(stage2)) win = roof.p2 
+             else if (k.test(stage) && b.test(stage2)) win = roof.p 
+             else if (k.test(stage) && g.test(stage2)) win = roof.p2 
+             else if (stage == stage2) tie = true 
+             Miku.sendText(roof.asal, `_*Suit Results*_${tie ? '\nSERIES' : ''} 
+             @${roof.p.split`@`[0]} (${roof.text}) ${tie ? '' : roof.p == win ? ` Win \n` : ` Lost \n`} 
+             @${roof.p2.split`@`[0]} (${roof.text2}) ${tie ? '' : roof.p2 == win ? ` Win \n` : ` Lost \n`} 
+             `.trim(), m, { mentions: [roof.p, roof.p2] }) 
+             delete this.suit[roof.id] 
+             } 
+             } 
+             async function cerpen (category) { 
+               return new Promise((resolve, reject) => { 
+                   let title = category.toLowerCase().replace(/[()*]/g, "") 
+                   let judul = title.replace(/\s/g, "-") 
+                   let page = Math.floor(Math.random() * 5) 
+                   axios.get('http://cerpenmu.com/category/cerpen-'+judul+'/page/'+page) 
+                   .then((get) => { 
+                       let $ = cheerio.load(get.data) 
+                       let link = [] 
+                       $('article.post').each(function (a, b) { 
+                           link.push($(b).find('a').attr('href')) 
+                       }) 
+                       let random = link[Math.floor(Math.random() * link.length)] 
+                       axios.get(random) 
+                       .then((res) => { 
+                           let $$ = cheerio.load(res.data) 
+                           let hasil = { 
+                               title: $$('#content > article > h1').text(), 
+                               author: $$('#content > article').text().split('Short Story: ')[1].split('Category: ')[0], 
+                               kategori: $$('#content > article').text().split('Category: ')[1].split('\n')[0], 
+                               lolos: $$('#content > article').text().split('Passed moderation on: ')[1].split('\n')[0], 
+                               cerita: $$('#content > article > p').text() 
+                           } 
+                           resolve(hasil) 
+                       }) 
+                   }) 
+               }) 
+           } 
+  
+           if (kuismath.hasOwnProperty(m.sender.split('@')[0]) && isCmd) { 
+             kuis = true 
+             jawaban = kuismath[m.sender.split('@')[0]] 
+             if (budy.toLowerCase() == jawaban) { 
+             await reply(`「 *Math Quiz* 」\n\n 🎉 Correct Answer 🎉\n\nWant to play again? send ${prefix}math mode`) 
+             delete kuismath[m.sender.split('@')[0]] 
+             } else reply('*Wrong answer!*') 
+             } 
+  
+             if (isMedia && m.msg.fileSha256 && (m.msg.fileSha256.toString('base64') in global.db.sticker)) { 
+               let hash = global.db.sticker[m.msg.fileSha256.toString('base64')] 
+               let { text, mentionedJid } = hash 
+               let messages = await generateWAMessage(m.chat, { text: text, mentions: mentionedJid }, { 
+               userJid: Miku.user.id, 
+               quoted: m.quoted && m.quoted.fakeObj 
+               }) 
+               messages.key.fromMe = areJidsSameUser(m.sender, Miku.user.id) 
+               messages.key.id = m.key.id 
+               messages.pushName = m.pushName 
+               if (m.isGroup) messages.participant = m.sender 
+               let msg = { 
+               ...chatUpdate, 
+               messages: [proto.WebMessageInfo.fromObject(messages)], 
+               type: 'append' 
+               } 
+               Miku.ev.emit('messages.upsert', msg) 
+               } 
+            
+  
+  
+               const textImg = (teks) => { 
+                 Miku.sendMessage(m.chat, { text :teks, }, {quoted: m, thumbnail: fs.readFileSync('./Assets/pic4.jpg')})  
+                 } 
+                  
+                 
+               
+                 const ftoko = { 
+                 key: { 
+                 fromMe: false, 
+                 participant: `0@s.whatsapp.net`, ...(from ? { remoteJid: "16505434800@s.whatsapp.net" } : {}) 
+                 }, 
+                 message: { 
+                 "productMessage": { 
+                 "product": { 
+                 "productImage":{ 
+                 "mimetype": "image/jpeg", 
+                 "jpegThumbnail": BotLogo 
+                 }, 
+                 "title": `${global.OwnerName}`,  
+                 "description": `${global.BotName}`,  
+                 "currencyCode": "USD", 
+                 "priceAmount1000": "2000", 
+                 "retailerId": `${global.WaterMark}`, 
+                 "productImageCount": 1 
+                 }, 
+                 "businessOwnerJid": `0@s.whatsapp.net` 
+                 } 
+                 } 
+                 } 
+  
+                 const fgi = { 
+                   key: {  
+                         fromMe: false, 
+                        participant: `0@s.whatsapp.net`, ...(from ?  
+                   { remoteJid: "916909137213-1613049930@g.us" } : {})  
+                                }, 
+                   message: {  
+                                 "videoMessage": {  
+                                 "title": `Miku`, 
+                                 "h": `Miku`, 
+                                 'duration': '99999',  
+                                 'gifPlayback': 'true',  
+                                 'caption': `Fantox`, 
+                                 'jpegThumbnail': fs.readFileSync('./Assets/miku.mp4') 
+                                        } 
+                                       } 
+                                    }  
+  
+ //FAKEREPLY TROLI 
+ const ftroli = { 
+   key : { 
+   participant : '0@s.whatsapp.net' 
+   }, 
+   message: { 
+   orderMessage: { 
+   itemCount : 1, 
+   status: 1, 
+   surface : 1, 
+   message: `${global.OwnerName}`,  
+   orderTitle: `${global.BotName}`, 
+   thumbnail: BotLogo, //Pic 
+   sellerJid: '0@s.whatsapp.net' 
+     } 
+   } 
+   } 
+   //FAKEREPLY LOCATION 
+   const flokasi = { 
+   key : { 
+    participant : '0@s.whatsapp.net' 
+   }, 
+   message: { 
+   locationMessage: { 
+   name: `${global.location}`, 
+   jpegThumbnail: BotLogo 
+   } 
+   } 
+   } 
+   //FAKEREPLY DOCUMENT 
+   const fdocs = { 
+   key : { 
+    participant : '0@s.whatsapp.net' 
+   }, 
+   message: { 
+   documentMessage: { 
+   title: `${global.BotName}`,  
+   jpegThumbnail: BotLogo 
+   } 
+   } 
+   } 
+   //FAKEREPLY VIDEO 
+   const fvideo = { 
+   key: {  
+   fromMe: false, 
+   participant: `0@s.whatsapp.net`, ...(from ?  
+   { remoteJid: "916909137213-1613049930@g.us" } : {})  
+   }, 
+   message: {  
+   "videoMessage": {  
+   "title": `${global.BotName}`, 
+   "h": `${global.OwnerName}`, 
+   'seconds': '30',  
+   'caption': `${global.WaterMark}`, 
+   'jpegThumbnail': BotLogo 
+   } 
+   } 
+   } 
+   //FAKEREPLY GROUPINVITE 
+   const fgclink = { 
+   "key": { 
+   "fromMe": false, 
+   "participant": "0@s.whatsapp.net", 
+   "remoteJid": "0@s.whatsapp.net" 
+   }, 
+   "message": { 
+   "groupInviteMessage": { 
+   "groupJid": "916909137213-1616169743@g.us", 
+   "inviteCode": `${global.OwnerName}`, 
+   "groupName": `${global.BotName}`,  
+   "caption":`${global.WaterMark}`,  
+   'jpegThumbnail': BotLogo 
+   } 
+   } 
+   } 
+   //FAKEREPLY GIF 
+   const fgif = { 
+   key: {  
+   fromMe: false, 
+   participant: `0@s.whatsapp.net`, ...(from ?  
+   { remoteJid: "916909137213-1613049930@g.us" } : {})  
+   }, 
+   message: {  
+    "videoMessage": {  
+    "title":`${global.BotName}`, 
+    "h": `${global.OwnerName}`, 
+    'seconds': "30",  
+    'gifPlayback': 'true',  
+    'caption': `${global.WaterMark}`, 
+    'jpegThumbnail': BotLogo 
+   } 
+   } 
+   }  
+   //FAKEREPLY TEXT WITH THUMBNAIL 
+   const ftextt = { 
+   key: {  
+   fromMe: false, 
+   participant: `0@s.whatsapp.net`, ...(from ?  
+   { remoteJid: "916909137213-1613049930@g.us" } : {})  
+   }, 
+   message: {  
+   "extendedTextMessage": { 
+    "text":`${global.OwnerName}`, 
+   "title": `${global.BotName}`, 
+    'jpegThumbnail': BotLogo 
+   } 
+   }  
+   } 
+   //FAKEREPLY VN 
+   const fvn = { 
+   key: {  
+   fromMe: false, 
+   participant: `0@s.whatsapp.net`, ...(from ?  
+   { remoteJid: "916909137213-1613049930@g.us" } : {})  
+   }, 
+   message: {  
+   "audioMessage": { 
+   "mimetype":"audio/ogg; codecs=opus", 
+   "seconds": "9999999999999999", 
+   "ptt": "true" 
+   } 
+   }  
+   } 
+   l = 1 
+   monospace = '```' 
+   const timestampe = speed(); 
+   const latensie = speed() - timestampe 
+   const levelMenu = getLevelingLevel(m.sender) 
+   const xpMenu = getLevelingXp(m.sender) 
+   const uangku = getBalance(m.sender, balance) 
+   const reqXp  = 200 * (Math.pow(2, getLevelingLevel(m.sender)) - 1) 
+   const jumlahUser = pendaftar.length 
+     if (!isDarah){ addInventoriDarah(m.sender, DarahAwal) } 
+     if (!isInventory){ addInventori(m.sender) } 
+     if (!isInventoriBuruan){ addInventoriBuruan(m.sender) } 
+  
+  
+     const menulist = ` 
+     Konichiwa ${pushname} dear 👋. I am ${global.BotName}, a bot developed by: Fantox to take your WhatsApp usage into next level. 
+          
+        「 System Info 」 
+      
+     Speed : ${latensie.toFixed(4)} miliseconds 
+     Up Time : ${runtime(process.uptime())} 
+     Bot Name : ${global.BotName} 
+     Owner Name : ${global.OwnerName} 
+     𝗣𝗹𝗮𝘁𝗳𝗼𝗿𝗺 : Amazon AWS 
+     𝗧𝗼𝘁𝗮𝗹 𝗨𝘀𝗲𝗿 : ${Object.keys(global.db.users).length} 
+      
+      
+        「 User Info 」 
+      
+     User Level: ${levelMenu} 
+     User XP : ${xpMenu} \ ${reqXp} 
+     User Role : ${role} 
+      
+      
+        「 User Bank 」 
+      
+     User Balance : ${uangku} 
+     Iron : ${getBesi(m.sender)} 
+     Gold : ${getEmas(m.sender)} 
+     Emarald : ${getEmerald(m.sender)} 
+     Potion : ${getPotion(m.sender)} 
+      
+      
+     Type *-menu* or press any button below to start using *${global.BotName}* 
+      
+     ©️ *${global.BotName}* All Rights Reserved by: *Fantox* 
+     ` 
+         const qtod = m.quoted? "true":"false" 
+          
+          
+   function pickRandom(list) { 
+ return list[Math.floor(list.length * Math.random())] 
+ } 
+  
+             
+  
+ switch(command) { 
+          
+     case 'sc': case 'script': case 'sourcecode': { 
+         if (isBan) return reply(mess.banned)                                  
+     if (isBanChat) return reply(mess.bangc) 
+     teks = `*${global.BotName}'s Script*\n\n*GitHub*: ${global.BotSourceCode}\n\nDont forget to follow me on *GitHub* and give a ⭐️ to my projects. ` 
+     let buttons = [ 
+     {buttonId: `-menu`, buttonText: {displayText: '✨Bot Menu✨'}, type: 1} 
+     ] 
+     let buttonMessage = { 
+     image: Thumb, 
+     jpegThumbnail: BotLogo , 
+     caption: teks, 
+     footer: `${BotName }`, 
+     buttons: buttons, 
+     headerType: 4, 
+     /*contextInfo:{externalAdReply:{ 
+     title:"Powered by Fantox", 
+     body: " ",  
+     thumbnail: fs.readFileSync("Assets/pic2.jpg"), 
+     mediaType:1, 
+     mediaUrl: 'https://wallpapercave.com/wp/wp10524580.jpg', 
+     sourceUrl: "https://wallpapercave.com/wp/wp10524580.jpg" 
+     }}*/ 
+  
+     } 
+     Miku.sendMessage(m.chat, buttonMessage, { quoted: m }) 
+     }
+    break
+ case'me': case 'profile': case 'p': 
+     if (isBan) return reply(mess.banned)                                  
+     if (isBanChat) return reply(mess.bangc) 
+   if (!isDarah){ addInventoriDarah(m.sender, DarahAwal) } 
+   if (!isInventory){ addInventori(m.sender) } 
+   if (!isInventoriBuruan){ addInventoriBuruan(m.sender) } 
+       
+ 
